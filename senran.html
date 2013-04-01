@@ -1,0 +1,103 @@
+<html itemtype="http://schema.org/Review" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>閃乱カグラ</title>
+	<script type="text/javascript" src="js/lufylegend-1.6.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+	<style type="text/css">
+	body{
+	margin: 0;
+	background-color: rgb(235, 228, 194);
+	background-image: url("http://www.maql.co.jp/special/game/vita/kaguraversus/1178181/img/bg_l.png");
+	background-position: left -80px;
+	background-repeat: repeat-y;
+	}
+	
+	#area{
+	background-image: url("http://www.maql.co.jp/special/game/vita/kaguraversus/1178181/img/bg_r.png");
+	background-position: right -80px;
+	background-repeat: repeat-y;
+	}
+	
+	#main{
+	width: 1024px;
+	height: 640px;
+	margin: 0 auto;
+	margin-top: 0px;
+	cursor: pointer;
+	}
+	
+	#bottombar{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 28px;
+	background-image: url("http://www.maql.co.jp/special/game/vita/kaguraversus/1178181/img/bg_foot_top.png");
+	background-position: 0 bottom;
+	background-repeat: repeat-x;
+	}
+	
+	#logoMAQL{
+	padding-top: 5px;
+	}
+	</style>
+</head>
+<body>
+	<div id="area">
+		<div id="main">
+		</div>
+		<div id="bottombar">
+			<center id="logoMAQL"><a href="http://www.maql.co.jp/" target="_blank"><img src="http://www.maql.co.jp/special/game/vita/kaguraversus/1178181/img/logo_maql.png" width="85" height="21" alt="株式会社　マーベラスAQL"></a></center>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var loader = new Array();
+	var backlayer = new LSprite();
+	var midlayer = new LSprite();
+	var uplayer = new LSprite();
+	var uppic;
+	var mouseon=0;
+	$(document).ready(function(){
+		init(10,"main",1024,640,main);
+	});
+	function main(){
+		loader[0] = new LLoader();
+		loader[1] = new LLoader();
+		loader[2] = new LLoader();
+		loader[2].addEventListener(LEvent.COMPLETE,loadBitmapdata);  
+		loader[0].load("http://i840.photobucket.com/albums/zz321/Zhaoyang_Wayne/Something/webpageimage031713/1_zpsdc41b476.png","bitmapData");  
+		loader[1].load("http://i840.photobucket.com/albums/zz321/Zhaoyang_Wayne/Something/webpageimage031713/2_zps2c4e7327.png","bitmapData");
+		loader[2].load("http://i840.photobucket.com/albums/zz321/Zhaoyang_Wayne/Something/webpageimage031713/3_zps1d76578f.png","bitmapData");
+	}
+	function loadBitmapdata(event){
+		var bitmapdata = new LBitmapData(loader[0].content);
+		var bitmap = new LBitmap(bitmapdata);
+		
+		backlayer.addChild(bitmap);
+		
+		uppic = new LBitmapData(loader[1].content); 
+		
+		addChild(backlayer);
+		addChild(midlayer);
+		addChild(uplayer);
+		backlayer.addEventListener(LMouseEvent.MOUSE_DOWN, onmousedown);
+		backlayer.addEventListener(LMouseEvent.MOUSE_UP, onmouseup);
+		backlayer.addEventListener(LMouseEvent.MOUSE_MOVE, onmousemove);
+	}
+	function onmouseup(event){
+		mouseon=0;
+	}
+	function onmousedown(event){
+		mouseon=1;
+	}
+	function onmousemove(event){
+		if(mouseon){
+			midlayer.graphics.drawArc(8, "#FFF", [event.selfX, event.selfY, 14, 0, Math.PI * 2]); 
+			uplayer.graphics.beginBitmapFill(uppic); 
+			uplayer.graphics.drawArc(0, "#000", [event.selfX, event.selfY, 14, 0, Math.PI * 2]); 
+		}
+	}
+	</script>
+</body>
+</html>
